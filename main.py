@@ -24,6 +24,13 @@ app.add_middleware(
 
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+DESTINATION_CITY = {
+    "Coaker's Walk": "Kodaikanal",
+    "Bryant Park": "Kodaikanal",
+    "Silver Cascade Falls": "Kodaikanal",
+    "Guna Caves": "Kodaikanal",
+    "Pine Forest": "Kodaikanal",
+}
 
 
 @app.get("/")
@@ -67,7 +74,8 @@ def crowd(
 def tourism(destination: str):
 
     # Get live weather
-    weather = get_weather(destination)
+    city = DESTINATION_CITY.get(destination, "Kodaikanal")
+    weather = get_weather(city)
 
     if "error" in weather:
         return weather
@@ -94,8 +102,9 @@ def tourism(destination: str):
     )
 
     return {
-        "destination": destination,
-        "weather": weather,
-        "crowd": prediction,
-        "ai_recommendation": ai
-    }
+    "destination": destination,
+    "city": city,
+    "weather": weather,
+    "crowd": prediction,
+    "ai_recommendation": ai
+}

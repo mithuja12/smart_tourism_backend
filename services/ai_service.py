@@ -12,20 +12,28 @@ model = genai.GenerativeModel("gemini-2.5-flash")
 def get_ai_recommendation(destination, crowd_level, weather):
 
     prompt = f"""
-You are a smart tourism assistant.
+You are an expert AI tourism guide for Kodaikanal, Tamil Nadu, India.
 
-Destination: {destination}
+Tourist Destination:
+{destination}
 
-Crowd Level: {crowd_level}
+Current Crowd Level:
+{crowd_level}
 
-Weather: {weather}
+Current Weather:
+{weather}
 
-Give:
-1. Best visiting time
-2. One travel tip
-3. One alternate nearby attraction
+Based on the above information, provide:
 
-Return only plain text.
+1. Best time to visit this destination today.
+2. A short travel tip (1-2 sentences).
+3. One nearby tourist attraction in Kodaikanal that is a good alternative if this place is crowded.
+4. A parking suggestion if applicable.
+5. A safety or weather recommendation if necessary.
+
+Keep the response concise, practical and tourist-friendly.
+
+Return only plain text without markdown or numbering symbols.
 """
 
     response = model.generate_content(prompt)
